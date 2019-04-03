@@ -647,6 +647,12 @@ void State::dumpStatus(Connection & conn, bool log)
                     }
                 }
 
+                {
+                    auto object = nested2.object("featuresConsumption");
+                    for (auto & f : s->featuresConsumption)
+                        object.attr(f.first, f.second);
+                }
+
                 nested2.attr("currentJobs", s->currentJobs);
                 if (s->currentJobs == 0)
                     nested2.attr("idleSince", s->idleSince);
