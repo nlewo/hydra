@@ -633,14 +633,18 @@ void State::dumpStatus(Connection & conn, bool log)
 
                 {
                     auto list = nested2.list("supportedFeatures");
-                    for (auto & s : m->supportedFeatures)
-                        list.elem(s);
+                    for (auto & s : m->supportedFeatures) {
+                        auto amount = s.second == UINT_MAX ? "" : ":" + std::to_string(s.second);
+                        list.elem(s.first + amount);
+                    }
                 }
 
                 {
                     auto list = nested2.list("mandatoryFeatures");
-                    for (auto & s : m->mandatoryFeatures)
-                        list.elem(s);
+                    for (auto & s : m->mandatoryFeatures) {
+                        auto amount = s.second == UINT_MAX ? "" : ":" + std::to_string(s.second);
+                        list.elem(s.first + amount);
+                    }
                 }
 
                 nested2.attr("currentJobs", s->currentJobs);
